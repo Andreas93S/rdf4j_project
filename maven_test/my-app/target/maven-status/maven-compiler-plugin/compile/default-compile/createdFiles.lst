@@ -1,2 +1,5 @@
-com/mycompany/app/App.class
 rdf4j_test.class
+rdf4j_access_server.class
+rdf4j_get_statements_from_server.class
+com/mycompany/app/App.class
+rdf4j_add_statements_to_server.class
