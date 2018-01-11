@@ -1,0 +1,21 @@
+- To create a new maven project, type this into a terminal:
+
+	mvn -B archetype:generate \
+	  -DarchetypeGroupId=org.apache.maven.archetypes \
+	  -DgroupId=com.mycompany.app \
+	  -DartifactId=my-app
+	  
+where my-app is the name of the project!
+
+- Create all classes in srs/main/java
+
+- compile (and test?) with:
+	
+	mvn test-compile
+
+- run application (main function) with:
+
+	mvn exec:java -Dexec.mainClass="class_name"
+	
+where class_name is the name of the main class.
+
