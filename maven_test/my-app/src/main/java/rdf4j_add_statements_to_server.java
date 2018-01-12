@@ -63,7 +63,7 @@ public class rdf4j_add_statements_to_server {
 			IRI nextPosition = vf.createIRI ("http://Scene:NextPosition");
 			IRI model0 = vf.createIRI ("http://Scene0/Model0");
 			IRI position = vf.createIRI ("http://Scene0/Position");
-			Literal sceneIndexValue = vf.createliteral (0);
+			Literal sceneIndexValue = vf.createLiteral (0);
 			repoConnection.add (scene0, sceneIndex, sceneIndexValue);
 			repoConnection.add (scene0, identifiedModel, model0);
 			repoConnection.add (scene0, nextPosition, position);
@@ -80,6 +80,15 @@ public class rdf4j_add_statements_to_server {
 			repoConnection.add (model0, pose_predicate, pose_object);
 			
 			// Add statements about the next position
+			IRI xPos = vf.createIRI ("http://Position:XPosition");
+			IRI yPos = vf.createIRI ("http://Position:YPosition");
+			IRI zPos = vf.createIRI ("http://Position:ZPosition");
+			Literal xPosValue = vf.createLiteral (0.13);
+			Literal yPosValue = vf.createLiteral (0.43);
+			Literal zPosValue = vf.createLiteral (0.56);
+			repoConnection.add (nextPosition, xPos, xPosValue);
+			repoConnection.add (nextPosition, yPos, yPosValue);
+			repoConnection.add (nextPosition, zPos, zPosValue);
 			
 			System.out.println ("Connection to " + repositoryID + ", " + rdf4jServer + " Successful");
 			
