@@ -62,7 +62,7 @@ public class rdf4j_remove_statements_from_server {
 			   	while (statements.hasNext()) 
 			   	{
 			  		Statement st = statements.next();
-					//repoConnection.remove (st);		
+					repoConnection.remove (st);		
 			   	}
 			}
 			
