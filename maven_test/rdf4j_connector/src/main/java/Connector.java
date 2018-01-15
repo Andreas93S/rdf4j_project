@@ -22,7 +22,7 @@ public class Connector {
 		public int sceneIndex;
 		public int clusterIndex;
 		public String modelName;
-		public double Score;
+		public double score;
 		public String pose;
 	}
 
@@ -102,7 +102,7 @@ public class Connector {
 			repoConn.add (modelIRI, modelName, nameL, context);
 			repoConn.add (modelIRI, modelScore, scoreL, context);
 			repoConn.add (modelIRI, modelPose, poseL, context);
-			repoConn.add (clusterIRI, identifiedModel, modelIRI);
+			repoConn.add (clusterIRI, identifiedModel, modelIRI, context);
 		}
 	}
 	
@@ -198,9 +198,9 @@ public class Connector {
 			IRI context = vf.createIRI("http://Context" + sceneIndex);
 			IRI clusterIRI = vf.createIRI ("http://Scene" + sceneIndex + "/Cluster" + clusterIndex);
 			IRI identifiedModel = vf.createIRI ("http://Cluster:IdentifiedModel");
-			String modelName;
-			double score;
-			String pose;
+			IRI modelName = vf.createIRI ("http://Model:Name");
+			IRI modelScore = vf.createIRI ("http://Model:Score");
+			IRI modelPose = vf.createIRI ("http://Model:Pose");
 			try (RepositoryResult<Statement> statements1 = repoConn.getStatements(clusterIRI, identifiedModel, null, context)) 
 			{
 			   	while (statements1.hasNext()) 
@@ -214,15 +214,20 @@ public class Connector {
 						while (statements2.hasNext()) 
 						{
 							Statement st2 = statements2.next();
-							modelName = st2.getObject().stringValue();
-							score = ((Literal)st2.getObject()).doubleValue();
-							pose = st2.getObject().stringValue();
+							if (st2.getPredicate().equals(modelName))
+							{
+								cr.modelName = st2.getObject().stringValue();
+							}
+							else if (st2.getPredicate().equals(modelScore))
+							{
+								cr.score = ((Literal)st2.getObject()).doubleValue();
+							}
+							else
+							{
+								cr.pose = st2.getObject().stringValue();
+							}					
 						}
 					}
-					
-			  		cr.modelName = modelName;
-			  		cr.score = score;
-			  		cr.pose = pose;
 			  		crList.add (cr);
 		  		}
 	  		}
