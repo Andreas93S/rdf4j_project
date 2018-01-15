@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "JNI_Helper.hpp"
+#include "../cpp_java/JNI_Helper.hpp"
 
 //jmethodID get_static_mid(JNIEnv* env, jclass class_j, std::string method_name, std::string signature);
 //jclass get_class(JNIEnv* env, std::string class_name);
