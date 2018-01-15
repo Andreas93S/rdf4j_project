@@ -1,0 +1,3 @@
+class JNI_Helper {
+	
+};
