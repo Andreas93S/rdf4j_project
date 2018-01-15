@@ -10,9 +10,11 @@ main: cpp/main.cpp
 	-L/usr/bin/java \
 	-L/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/ \
 	main.cpp \
+	JNI_Helper.cpp \
 	-ljvm
 
-run: maven main
+#run: maven main
+run: main
 	LD_LIBRARY_PATH="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server" \
 	./cpp/main.out
 

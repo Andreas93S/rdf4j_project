@@ -1,14 +1,19 @@
-#include <jni.h>
-
-#include <cassert>
 #include <iostream>
-
 #include <stdexcept>
 
-jmethodID get_static_mid(JNIEnv* env, jclass class_j, std::string method_name, std::string signature);
-jclass get_class(JNIEnv* env, std::string class_name);
+#include "JNI_Helper.hpp"
+
+//jmethodID get_static_mid(JNIEnv* env, jclass class_j, std::string method_name, std::string signature);
+//jclass get_class(JNIEnv* env, std::string class_name);
 
 int main(int argc, char** argv) {
+	JNI_Helper jh("./maven_test/my-app/target/my-app-1.0-SNAPSHOT-jar-with-dependencies.jar");
+	jclass main_class = jh.get_class("rdf4j_get_statements_from_server");
+	jmethodID main_mid = jh.get_static_mid(main_class, "main", "([Ljava/lang/String;)V");
+	jh.call_static_void_method(main_class, main_mid);
+	return 0;
+
+	/*
 	std::string maven_jar_path = "-Djava.class.path=./maven_test/my-app/target/my-app-1.0-SNAPSHOT-jar-with-dependencies.jar";
 
 	const int kNumOptions = 1;
@@ -32,6 +37,7 @@ int main(int argc, char** argv) {
 	jclass main_class = get_class(env, "rdf4j_get_statements_from_server");
 	jmethodID main_mid = get_static_mid(env, main_class, "main", "([Ljava/lang/String;)V");
 	env->CallStaticVoidMethod(main_class, main_mid, NULL);
+	*/
 	
 	/*
 	jclass main_class = get_class(env, "Main");
@@ -57,10 +63,13 @@ int main(int argc, char** argv) {
 	std::cout << val << std::endl;
 	*/
 
+	/*
 	jvm->DestroyJavaVM();
 	return 0;
+	*/
 }
 
+/*
 jclass get_class(JNIEnv* env, std::string class_name) {
 	jclass c = env->FindClass(class_name.c_str());
 	if (c == NULL) {
@@ -74,3 +83,4 @@ jmethodID get_static_mid(JNIEnv* env, jclass class_j, std::string method_name, s
 		throw std::runtime_error("get_static_mid : Method \"" + method_name + "\" not found!");
 	}
 }
+*/
