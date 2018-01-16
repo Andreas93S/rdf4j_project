@@ -112,7 +112,7 @@ public class Connector {
 		try (RepositoryConnection repoConn = repo.getConnection())
 		{
 			IRI context = vf.createIRI("http://kif.cs.lth.se/context" + sceneIndex);
-			IRI modelIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "-cluster" + clusterIndex + "-" + modelName);
+			IRI modelIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "/cluster" + clusterIndex + "/" + modelName);
 			IRI modelScore = vf.createIRI ("http://kif.cs.lth.se/score");			
 			try (RepositoryResult<Statement> statements = repoConn.getStatements(modelIRI, modelScore, null, context)) 
 			{
@@ -133,7 +133,7 @@ public class Connector {
 		try (RepositoryConnection repoConn = repo.getConnection())
 		{
 			IRI context = vf.createIRI("http://kif.cs.lth.se/context" + sceneIndex);
-			IRI modelIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "-cluster" + clusterIndex + "-" + modelName);
+			IRI modelIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "/cluster" + clusterIndex + "/" + modelName);
 			IRI modelPose = vf.createIRI ("http://kif.cs.lth.se/pose");
 			try (RepositoryResult<Statement> statements = repoConn.getStatements(modelIRI, modelPose, null, context)) 
 			{
@@ -175,7 +175,7 @@ public class Connector {
 		try (RepositoryConnection repoConn = repo.getConnection())
 		{
 			IRI context = vf.createIRI("http://kif.cs.lth.se/context" + sceneIndex);
-			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "-cluster" + clusterIndex);
+			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "/cluster" + clusterIndex);
 			IRI nextPosition = vf.createIRI ("http://kif.cs.lth.se/nextPosition");
 			try (RepositoryResult<Statement> statements = repoConn.getStatements(clusterIRI, nextPosition, null, context)) 
 			{
@@ -196,7 +196,7 @@ public class Connector {
 		try (RepositoryConnection repoConn = repo.getConnection())
 		{
 			IRI context = vf.createIRI("http://kif.cs.lth.se/context" + sceneIndex);
-			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "-cluster" + clusterIndex);
+			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "/cluster" + clusterIndex);
 			IRI identifiedModel = vf.createIRI ("http://kif.cs.lth.se/identifiedModel");
 			IRI modelName = vf.createIRI ("http://kif.cs.lth.se/name");
 			IRI modelScore = vf.createIRI ("http://kif.cs.lth.se/score");
