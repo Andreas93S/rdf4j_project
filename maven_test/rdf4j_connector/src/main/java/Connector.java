@@ -17,14 +17,6 @@ public class Connector {
 	private String repoID;
 	private Repository repo;
 	private ValueFactory vf;
-	
-	public class ClusterResults {
-		public int sceneIndex;
-		public int clusterIndex;
-		public String modelName;
-		public double score;
-		public String pose;
-	}
 
 	Connector (String serverID, String repoID)
 	{
@@ -53,7 +45,7 @@ public class Connector {
 		{
 			IRI context = vf.createIRI("http://kif.cs.lth.se/context" + sceneIndex);
 			IRI sceneIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex);
-			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "-cluster" + clusterIndex);
+			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "/cluster" + clusterIndex);
 			IRI cluster = vf.createIRI ("http://kif.cs.lth.se/cluster");
 			Literal sceneIndexValue = vf.createLiteral (sceneIndex);
 			repoConn.add (sceneIRI, cluster, clusterIRI, context);
@@ -77,7 +69,7 @@ public class Connector {
 		try (RepositoryConnection repoConn = repo.getConnection())
 		{
 			IRI context = vf.createIRI("http://kif.cs.lth.se/context" + sceneIndex);
-			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "-cluster" + clusterIndex);
+			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "/cluster" + clusterIndex);
 			IRI nextPosition = vf.createIRI ("http://kif.cs.lth.se/nextPosition");
 			Literal nextPositionL = vf.createLiteral (position);
 			repoConn.add (clusterIRI, nextPosition, nextPositionL, context);
@@ -90,9 +82,9 @@ public class Connector {
 		{
 			IRI context = vf.createIRI("http://kif.cs.lth.se/context" + sceneIndex);
 			IRI sceneIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex);
-			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "-cluster" + clusterIndex);
+			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "/cluster" + clusterIndex);
 			IRI identifiedModel = vf.createIRI ("http://kif.cs.lth.se/identifiedModel");
-			IRI modelIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "-cluster" + clusterIndex + "-" + name);
+			IRI modelIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "/cluster" + clusterIndex + "/" + name);
 			IRI modelName = vf.createIRI ("http://kif.cs.lth.se/name");
 			IRI modelScore = vf.createIRI ("http://kif.cs.lth.se/score");
 			IRI modelPose = vf.createIRI ("http://kif.cs.lth.se/pose");
@@ -112,7 +104,7 @@ public class Connector {
 		try (RepositoryConnection repoConn = repo.getConnection())
 		{
 			IRI context = vf.createIRI("http://kif.cs.lth.se/context" + sceneIndex);
-			IRI modelIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "-cluster" + clusterIndex + "-" + modelName);
+			IRI modelIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "/cluster" + clusterIndex + "/" + modelName);
 			IRI modelScore = vf.createIRI ("http://kif.cs.lth.se/score");			
 			try (RepositoryResult<Statement> statements = repoConn.getStatements(modelIRI, modelScore, null, context)) 
 			{
@@ -133,7 +125,7 @@ public class Connector {
 		try (RepositoryConnection repoConn = repo.getConnection())
 		{
 			IRI context = vf.createIRI("http://kif.cs.lth.se/context" + sceneIndex);
-			IRI modelIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "-cluster" + clusterIndex + "-" + modelName);
+			IRI modelIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "/cluster" + clusterIndex + "/" + modelName);
 			IRI modelPose = vf.createIRI ("http://kif.cs.lth.se/pose");
 			try (RepositoryResult<Statement> statements = repoConn.getStatements(modelIRI, modelPose, null, context)) 
 			{
@@ -175,7 +167,7 @@ public class Connector {
 		try (RepositoryConnection repoConn = repo.getConnection())
 		{
 			IRI context = vf.createIRI("http://kif.cs.lth.se/context" + sceneIndex);
-			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "-cluster" + clusterIndex);
+			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "/cluster" + clusterIndex);
 			IRI nextPosition = vf.createIRI ("http://kif.cs.lth.se/nextPosition");
 			try (RepositoryResult<Statement> statements = repoConn.getStatements(clusterIRI, nextPosition, null, context)) 
 			{
@@ -196,7 +188,7 @@ public class Connector {
 		try (RepositoryConnection repoConn = repo.getConnection())
 		{
 			IRI context = vf.createIRI("http://kif.cs.lth.se/context" + sceneIndex);
-			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "-cluster" + clusterIndex);
+			IRI clusterIRI = vf.createIRI ("http://kif.cs.lth.se/scene" + sceneIndex + "/cluster" + clusterIndex);
 			IRI identifiedModel = vf.createIRI ("http://kif.cs.lth.se/identifiedModel");
 			IRI modelName = vf.createIRI ("http://kif.cs.lth.se/name");
 			IRI modelScore = vf.createIRI ("http://kif.cs.lth.se/score");
@@ -234,6 +226,11 @@ public class Connector {
 		}
 		
 		return crList;
+	}
+	
+	public void close ()
+	{
+		repo.shutDown();
 	}
 }
 

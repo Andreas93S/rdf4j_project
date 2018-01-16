@@ -27,9 +27,9 @@ public class Test {
 		conn.addModel (0, 0, "Xbox controller", 0.53, "0.5,0.7,0.1,...");
 		System.out.println("Results for xbox controller added");
 		
-		List<ClusterResults> crList = conn.getAllIdentifiedModels (0, 0);
+		List<Connector.ClusterResults> crList = conn.getAllIdentifiedModels (0, 0);
 		
-		for (ClusterResults cr : crList)
+		for (Connector.ClusterResults cr : crList)
 		{
 			System.out.println ("\n" + cr.modelName + ":");
 			System.out.println ("\tScore: " + cr.score);
