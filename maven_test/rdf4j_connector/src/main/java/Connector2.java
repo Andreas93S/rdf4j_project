@@ -36,7 +36,7 @@ public class Connector2 {
 		ModelBuilder builder = new ModelBuilder();
 		Model model = builder
 			.setNamespace ("kif", ns)
-			.namedGraph ("kif:context" + sceneIndex)
+			.namedGraph ("kif:graphScene" + sceneIndex)
 				.subject ("kif:scene" + sceneIndex)
 					.add (RDF.TYPE, "kif:Scene")
 					.add ("kif:Index", sceneIndex)
@@ -54,7 +54,7 @@ public class Connector2 {
 		ModelBuilder builder = new ModelBuilder();
 		Model model = builder
 			.setNamespace ("kif", ns)
-			.namedGraph ("kif:context" + sceneIndex)
+			.namedGraph ("kif:graphScene" + sceneIndex)
 				.subject ("kif:scene" + sceneIndex + "/cluster" + clusterIndex)
 					.add (RDF.TYPE, "kif:Cluster")
 					.add ("kif:Index", clusterIndex)
@@ -73,7 +73,7 @@ public class Connector2 {
 		ModelBuilder builder = new ModelBuilder();
 		Model model = builder
 			.setNamespace ("kif", ns)
-			.namedGraph ("kif:context" + sceneIndex)
+			.namedGraph ("kif:graphScene" + sceneIndex)
 				.subject ("kif:scene" + sceneIndex)
 					.add ("kif:currentPosition", position)
 			.build();
@@ -89,7 +89,7 @@ public class Connector2 {
 		ModelBuilder builder = new ModelBuilder();
 		Model model = builder
 			.setNamespace ("kif", ns)
-			.namedGraph ("kif:context" + sceneIndex)
+			.namedGraph ("kif:graphScene" + sceneIndex)
 				.subject ("kif:scene" + sceneIndex + "/cluster" + clusterIndex)
 					.add ("kif:nextPosition", position)
 			.build();
@@ -105,11 +105,12 @@ public class Connector2 {
 		ModelBuilder builder = new ModelBuilder();
 		Model model = builder
 			.setNamespace ("kif", ns)
-			.namedGraph ("kif:context" + sceneIndex)
+			.namedGraph ("kif:graphScene" + sceneIndex)
 				.subject ("kif:scene" + sceneIndex + "/cluster" + clusterIndex + "/" + name)
 					.add ("kif:name", name)
 					.add ("kif:score", score)
 					.add ("kif:pose", pose)
+					.add (RDF.TYPE, "kif:ModelData")
 				.subject ("kif:scene" + sceneIndex + "/cluster" + clusterIndex)
 					.add ("kif:identifiedModel", "kif:scene" + sceneIndex + "/cluster" + clusterIndex + "/" + name)
 			.build();
@@ -123,7 +124,7 @@ public class Connector2 {
 	public double getScore (int sceneIndex, int clusterIndex, String modelName)
 	{
 		double score = 0.0;
-		IRI contextIRI = vf.createIRI(ns + "context" + sceneIndex);
+		IRI contextIRI = vf.createIRI(ns + "graphScene" + sceneIndex);
 		IRI modelIRI = vf.createIRI (ns + "scene" + sceneIndex + "/cluster" + clusterIndex + "/" + modelName);
 		IRI scoreIRI = vf.createIRI (ns + "score");	
 		try (RepositoryConnection repoConn = repo.getConnection())
@@ -144,7 +145,7 @@ public class Connector2 {
 	public String getPose (int sceneIndex, int clusterIndex, String modelName)
 	{
 		String pose = "";
-		IRI contextIRI = vf.createIRI(ns + "context" + sceneIndex);
+		IRI contextIRI = vf.createIRI(ns + "graphScene" + sceneIndex);
 		IRI modelIRI = vf.createIRI (ns + "scene" + sceneIndex + "/cluster" + clusterIndex + "/" + modelName);
 		IRI poseIRI = vf.createIRI (ns + "pose");
 		try (RepositoryConnection repoConn = repo.getConnection())
@@ -165,7 +166,7 @@ public class Connector2 {
 	public String getCurrentPosition (int sceneIndex)
 	{
 		String position = "";
-		IRI contextIRI = vf.createIRI(ns + "context" + sceneIndex);
+		IRI contextIRI = vf.createIRI(ns + "graphScene" + sceneIndex);
 		IRI sceneIRI = vf.createIRI (ns + "scene" + sceneIndex);
 		IRI currentPositionIRI = vf.createIRI (ns + "currentPosition");
 		try (RepositoryConnection repoConn = repo.getConnection())
@@ -186,7 +187,7 @@ public class Connector2 {
 	public String getNextPosition (int sceneIndex, int clusterIndex)
 	{
 		String position = "";
-		IRI contextIRI = vf.createIRI(ns + "context" + sceneIndex);
+		IRI contextIRI = vf.createIRI(ns + "graphScene" + sceneIndex);
 		IRI clusterIRI = vf.createIRI (ns + "scene" + sceneIndex + "/cluster" + clusterIndex);
 		IRI nextPositionIRI = vf.createIRI (ns + "nextPosition");
 		try (RepositoryConnection repoConn = repo.getConnection())
@@ -207,7 +208,7 @@ public class Connector2 {
 	public List getAllIdentifiedModels(int sceneIndex, int clusterIndex)
 	{
 		List<ClusterResults> crList = new LinkedList<ClusterResults> ();
-		IRI contextIRI = vf.createIRI(ns, "context" + sceneIndex);
+		IRI contextIRI = vf.createIRI(ns, "graphScene" + sceneIndex);
 		IRI clusterIRI = vf.createIRI (ns + "scene" + sceneIndex + "/cluster" + clusterIndex);
 		IRI identifiedModelIRI = vf.createIRI (ns + "identifiedModel");
 		IRI nameIRI = vf.createIRI (ns + "name");
