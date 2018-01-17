@@ -6,7 +6,9 @@ public class Test {
 	public static void main(String[] args) {
 		// Wood object
 		//Connector conn = new Connector("http://vm25.cs.lth.se/rdf4j-server", "object_repo");
-		Connector2 conn = new Connector2("http://vm25.cs.lth.se/rdf4j-server", "object_repo");
+		Connector conn = new Connector("http://vm25.cs.lth.se/rdf4j-server", "object_repo");
+		conn.clearRepo ();
+		
 		conn.addScene (0);
 		System.out.println("Scene 0 added");
 		conn.addCluster (0, 0);
