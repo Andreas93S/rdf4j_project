@@ -4,10 +4,21 @@
 #include "../cpp_java/JNI_Helper.hpp"
 
 int main(int argc, char** argv) {
-	JNI_Helper jh("./maven_test/my-app/target/my-app-1.0-SNAPSHOT.jar");
-	jclass main_class = jh.get_class("rdf4j_get_statements_from_server");
-	jmethodID main_mid = jh.get_static_mid(main_class, "main", "([Ljava/lang/String;)V");
-	jh.call_static_void_method(main_class, main_mid);
+	JNI_Helper jh("./maven_test/rdf4j_connector/target/rdf4j_connector-1.0-SNAPSHOT.jar");
+	jclass main_class = jh.get_class("Connector");
+	//jmethodID main_mid = jh.get_static_mid(main_class, "main", "([Ljava/lang/String;)V");
+	jmethodID initialize_mid = jh.get_static_mid(main_class, "initialize", "(Ljava/lang/String;Ljava/lang/String;)V");
+	jmethodID main_mid = jh.get_static_mid(main_class, "getScore", "(IILjava/lang/String;)D");
+
+	jstring serverID = jh.create_string("http://vm25.cs.lth.se/rdf4j-server");
+	jstring repoID = jh.create_string("object_repo");
+	jh.call_static_void_method_args(main_class, initialize_mid, serverID, repoID);
+
+	jint scene_index = 0;
+	jint cluster_index = 0;
+	jstring model_name = jh.create_string("Wood_object");
+	jdouble score = jh.call_static_double_method_args(main_class, main_mid, scene_index, cluster_index, model_name);
+	std::cout << score << std::endl;
 	return 0;
 
 	/*

@@ -15,16 +15,27 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Connector {
-	private String serverID;
-	private String repoID;
-	private Repository repo;
-	private ValueFactory vf;
-	private String ns;
+	private static String serverID;
+	private static String repoID;
+	private static Repository repo;
+	private static ValueFactory vf;
+	private static String ns;
 
+	// Not used in cpp
 	Connector (String serverID, String repoID)
 	{
 		this.serverID = serverID;
 		this.repoID = repoID;
+		repo = new HTTPRepository (serverID, repoID);
+		repo.initialize();
+		vf = repo.getValueFactory();
+		ns = "http://kif.cs.lth.se/";
+	}
+
+	public static void initialize(String serverID_ini, String repoID_ini)
+	{
+		serverID = serverID_ini;
+		repoID = repoID_ini;
 		repo = new HTTPRepository (serverID, repoID);
 		repo.initialize();
 		vf = repo.getValueFactory();
@@ -123,10 +134,11 @@ public class Connector {
 	
 	public static double getScore (int sceneIndex, int clusterIndex, String modelName)
 	{
-		double score = 0.0;
+		double score = -1.0;
 		IRI contextIRI = vf.createIRI(ns + "graphScene" + sceneIndex);
 		IRI modelIRI = vf.createIRI (ns + "scene" + sceneIndex + "/cluster" + clusterIndex + "/" + modelName);
 		IRI scoreIRI = vf.createIRI (ns + "score");	
+		System.out.println(ns + "scene" + sceneIndex + "/cluster" + clusterIndex + "/" + modelName);
 		try (RepositoryConnection repoConn = repo.getConnection())
 		{		
 			try (RepositoryResult<Statement> statements = repoConn.getStatements(modelIRI, scoreIRI, null, contextIRI)) 
