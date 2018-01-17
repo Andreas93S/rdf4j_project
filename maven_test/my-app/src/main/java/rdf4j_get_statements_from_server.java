@@ -54,7 +54,8 @@ public class rdf4j_get_statements_from_server {
 			}
 			
 			System.out.println ("\n");
-			try (RepositoryResult<Statement> statements = repoConnection.getStatements(null, null, null)) 
+			
+			try (RepositoryResult<Statement> statements = repoConnection.getStatements(null, null, null))
 			{
 			   	while (statements.hasNext()) 
 			   	{
@@ -81,6 +82,7 @@ public class rdf4j_get_statements_from_server {
 		catch (RepositoryException e)
 		{
 			System.out.println ("Failed to establish connection to repository " + repositoryID + ", " + rdf4jServer);
+			System.out.println(e);
 		}
 		finally
 		{

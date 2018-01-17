@@ -3,11 +3,8 @@
 
 #include "../cpp_java/JNI_Helper.hpp"
 
-//jmethodID get_static_mid(JNIEnv* env, jclass class_j, std::string method_name, std::string signature);
-//jclass get_class(JNIEnv* env, std::string class_name);
-
 int main(int argc, char** argv) {
-	JNI_Helper jh("./maven_test/my-app/target/my-app-1.0-SNAPSHOT-jar-with-dependencies.jar");
+	JNI_Helper jh("./maven_test/my-app/target/my-app-1.0-SNAPSHOT.jar");
 	jclass main_class = jh.get_class("rdf4j_get_statements_from_server");
 	jmethodID main_mid = jh.get_static_mid(main_class, "main", "([Ljava/lang/String;)V");
 	jh.call_static_void_method(main_class, main_mid);
@@ -68,19 +65,3 @@ int main(int argc, char** argv) {
 	return 0;
 	*/
 }
-
-/*
-jclass get_class(JNIEnv* env, std::string class_name) {
-	jclass c = env->FindClass(class_name.c_str());
-	if (c == NULL) {
-		throw std::runtime_error("get_class : Class \"" + class_name + "\" not found!");
-	}
-}
-
-jmethodID get_static_mid(JNIEnv* env, jclass class_j, std::string method_name, std::string signature) {
-	jmethodID mid = env->GetStaticMethodID(class_j, method_name.c_str(), signature.c_str());
-	if (mid == NULL) {
-		throw std::runtime_error("get_static_mid : Method \"" + method_name + "\" not found!");
-	}
-}
-*/
