@@ -16,11 +16,6 @@ class RDF_Connector : public JNI_Helper {
 		void
 		set_class(std::string class_name);
 
-		/*
-		double
-		get_score(int scene_index, int cluster_index, std::string model_name);
-		*/
-
 		void 
 		add_scene (int scene_index);
 

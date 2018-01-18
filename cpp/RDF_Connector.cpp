@@ -17,17 +17,6 @@ RDF_Connector::initialize(std::string serverID, std::string repoID) {
 	call_static_void_method(main_class, mid, sid, rid);
 }
 
-/*
-double
-RDF_Connector::get_score(jint scene_index, jint cluster_index, std::string model_name) {
-	jstring m_n = create_string(model_name);
-	jmethodID mid = get_static_mid(main_class, "getScore", "(IILjava/lang/String;)D");
-	jdouble score = call_static_double_method(main_class, mid, scene_index, cluster_index, m_n);
-
-	return score;
-}
-*/
-
 void 
 RDF_Connector::add_scene (int scene_index) {
 	jmethodID mid = get_static_mid(main_class, "addScene", "(I)V");
