@@ -19,6 +19,13 @@ where my-app is the name of the project!
 	
 where class_name is the name of the main class.
 
+ -run application with input arguments:
+ 	
+ 	mvn exec:java -Dexec.mainClass="class_name" -Dexec.arguments="arg0, arg1, ..."
+ 	
+where arg0, arg1, ... are the input arguments
+
+
 - Add:
 
   <properties>

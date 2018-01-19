@@ -4,8 +4,8 @@ import java.util.List;
 public class Test {
 
 	public static void main(String[] args) {
+		/*
 		// Wood object
-		//Connector conn = new Connector("http://vm25.cs.lth.se/rdf4j-server", "object_repo");
 		Connector conn = new Connector("http://vm25.cs.lth.se/rdf4j-server", "object_repo");
 		conn.clearRepo ();
 		
@@ -28,16 +28,29 @@ public class Test {
 		// Xbox controller		
 		conn.addModel (0, 0, "Xbox controller", 0.53, "0.5,0.7,0.1,...");
 		System.out.println("Results for xbox controller added");
+		*/
 		
-		List<ClusterResults> crList = conn.getAllIdentifiedModels (0, 0);
+		Connector conn = new Connector("http://vm25.cs.lth.se/rdf4j-server", "object_repo");
+		List<ClusterResults> crList = conn.getAllIdentifiedModels (Integer.parseInt(args[0]), Integer.parseInt(args[1]));
 		
-		for (ClusterResults cr : crList)
+		if (crList.isEmpty())
 		{
-			System.out.println ("\n" + cr.modelName + ":");
-			System.out.println ("\tScore: " + cr.score);
-			System.out.println ("\tPose: " + cr.pose);
+			System.out.println ("\nNo results for scene " + args[0] + ", cluster " + args[1] + "\n");
 		}
-		
+		else
+		{
+			for (ClusterResults cr : crList)
+			{
+				System.out.println ("\n" + cr.modelName + ":");
+				System.out.println ("\tScore: " + cr.score);
+				System.out.println ("\tPose:");
+				String[] rows = cr.pose.split ("\n");
+				for (int i = 0; i < 4; i++)
+				{
+					System.out.println ("\t  " + rows[i]);
+				}
+			}
+		}
 		
 		conn.close ();
 	}
