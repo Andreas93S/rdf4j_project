@@ -2,7 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "RDF_Connector.hpp"
+#include "rdf_connector.hpp"
 
 std::map<std::string, jmethodID> mids;
 

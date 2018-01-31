@@ -16,11 +16,10 @@ main: cpp/main.cpp
 	-L/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/ \
 	cpp/main.cpp \
 	cpp_java/JNI_Helper.cpp \
-	cpp/RDF_Connector.cpp \
+	cpp/rdf_connector.cpp \
 	-ljvm
 
-#run: maven main
-run: main
+run: maven main
 	LD_LIBRARY_PATH="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server" \
 	cpp/main.out
 
