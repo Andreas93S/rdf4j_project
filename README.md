@@ -1,10 +1,7 @@
 # rdf4j_project
-To clone the entire repo run the following command
-```
-git clone --recurse-submodules URL
-```
 
-To pull changes from submodules run the following command
+## Dependencies
+Maven is needed to compile the Java library, you can install it by running
 ```
-git submodule update --remote
+sudo apt install maven
 ```
