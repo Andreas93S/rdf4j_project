@@ -4,7 +4,7 @@
 #include "rdf_connector.hpp"
 
 int main(int argc, char** argv) {
-	RDF_Connector rdf("./maven_test/rdf4j_connector/target/rdf4j_connector-1.0-SNAPSHOT.jar");
+	RDF_Connector rdf("./maven/rdf4j_connector/target/rdf4j_connector-1.0-SNAPSHOT.jar");
 	rdf.set_class("Connector");
 	rdf.initialize("http://vm25.cs.lth.se/rdf4j-server", "object_repo");
 

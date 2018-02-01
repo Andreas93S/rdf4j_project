@@ -1,11 +1,8 @@
 all: run
 
-maven:
-	cd maven_test/rdf4j_connector/ && \
+maven_rule: maven/rdf4j_connector/src/main/java/*
+	cd maven/rdf4j_connector/ && \
 	mvn package
-	#mvn test-compile && \
-	#mvn test-compile assembly:single
-
 
 main: cpp/main.cpp
 	g++ -std=c++11 \
@@ -19,11 +16,11 @@ main: cpp/main.cpp
 	cpp/rdf_connector.cpp \
 	-ljvm
 
-run: maven main
+run: maven_rule main
 	LD_LIBRARY_PATH="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server" \
 	cpp/main.out
 
 clean: 
-	cd maven_test/rdf4j_connector/ && \
+	cd maven/rdf4j_connector/ && \
 	mvn clean
 	rm cpp/main.out
